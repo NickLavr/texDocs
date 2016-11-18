@@ -1,0 +1,273 @@
+\documentclass[12pt, tikz]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage[russian]{babel}
+\usepackage[T2A]{fontenc}
+\usepackage[lutf8x]{luainputenc}
+\usepackage[english,russian]{babel}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{tikz}
+%\usetikzlibrary{graphdrawing}
+%\usetikzlibrary{graphs}
+\usetikzlibrary{trees}
+\usetikzlibrary{arrows}
+
+\usepackage[margin=1.5cm]{geometry}
+\title{Домашная работа по дискретной~математике~№9.\\Графы}
+\date{\today}
+\author{Лавренов Николай. Группа 161-2, ПМИ}
+
+%\newcommand*{\limn}{\ensuremath{\lim\limits_{n\to \infty}}}
+%\newcommand*{\limto}[2]{\ensuremath{\lim\limits_{#1\to #2}}}
+%\newcommand*{\limmin}{\ensuremath{\underset{n\to\infty}{\underline{\lim}}}}
+%\newcommand*{\limmax}{\ensuremath{\overline{\limn}}}
+%\newcommand*{\limtoinf}[1]{\ensuremath{\lim\limits_{#1\to\infty}}}
+
+
+\begin{document}
+	\maketitle
+	\newpage
+	\section*{№1}
+	Нет, такой граф не существует. Известно, что одна вершина имеет степень 1.
+	Тогда остальные 7 вершин (в случае полного подграфа на семи вершинах)
+	содержит не более $\frac{7 * 6}{2}=21$ ребер. С учетом еще одного ребра в вершину со степенью 1 получаем, что граф имеет не более 22 ребер. Но по учловию в нем 23 ребра.
+	Значит такой граф не существует.
+	
+	Ответ: нет
+	\section*{№2}
+	Предположим, что граф - дерево. Это означает, что ребер в графе 9.
+	
+	Оченим сумму степеней всех вершин. Известно, что у трех вершин степень по 4.
+	Также, поскольку граф является деревом остальные семь вершин имеют степень хотя бы один. Значит суммарная степень всех вершин хотя бы $3 * 4 + 7 = 19$.
+	С учетом ее четности понятно, что суммарная степень всех вершин хотя бы 20.
+	Значит в графе хотя бы 10 ребер. Получаем противоречие, ведь ребер 9.
+	
+	Ответ: нет.
+	
+	\section*{№3}
+
+	В начале оценим количество ребер в графе. По условию, степень каждой вершины хотя бы 8.
+	Значит сумма степеней по всем вершинам хотя бы $17 * 8$. Значит ребер в графе как минимум 
+	$|E| \geqslant \frac{17 * 8}{2}=17*4=68$.
+	
+	Предположим, что это не так. Значит страна разделена на две компоненты связанности с $a$ и $b$ вершинами.
+	Заметим, что $a + b = 17$. Максимальное количество ребер возможно, 
+	если обе компоненты - полные подграфы. Тогда ребер в нем не более, чем
+	$$|E|\leqslant\frac{a(a - 1)}{2} + \frac{b(b - 1)}{2}$$
+	С учетом $b = 17 - a$
+	$$|E|\leqslant\frac{a(a - 1)}{2} + \frac{(17 - a)(16 - a)}{2}=
+	\frac{a^2 - a + 17 \cdot 16 - 33a + a^2}{2}=
+	\frac{2a^2 - 34a + 272}{2}=
+	a^2-17a+136$$
+	Дадим ограничения на $a$. Для этого заметим, что, поскольку степень каждой вершины хотя бы 8, то в компоненте не может быть менее восьми вершин:
+	\begin{eqnarray}
+	\left\{\begin{aligned}
+	a \geqslant 8 \\
+	17 - a \geqslant 8
+	\end{aligned}
+	\right.
+	\Leftrightarrow
+	\left\{\begin{aligned}
+	a \geqslant 8 \\
+	a \leqslant 9
+	\end{aligned}
+	\right.
+	\Rightarrow
+	a \in \{8, 9\}
+	\end{eqnarray}
+	
+	Если $a = 8$, то $|E| \leqslant  8^2-17 \cdot 8 + 136 = 64$. 
+	Если $a = 9$, то $|E| \leqslant  9^2-17 \cdot 9 + 136 = 64$. 
+	Значит в любом случае $|E| \leqslant 64$. Однако $|E| \geqslant 68$. Противроечние.
+	Значит предполопжение неверно, страна не разделена на две компоненты.
+	
+	Тогда граф связный, что равносильно тому, что из любой вершины можно добраться до любой.
+	\section*{№4}
+
+	Посмотрим, как выглядят полные бинарные деревья.	
+		
+\begin{tikzpicture}[level distance=1.5cm,
+  level 1/.style={sibling distance=8cm},
+  level 2/.style={sibling distance=4cm},
+  level 3/.style={sibling distance=2cm},
+  level 4/.style={sibling distance=1cm},
+  level 5/.style={sibling distance=0.5cm}]
+  \node {корень}
+    child {node {}
+      child {node {}
+      child {node {}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}}
+      child {node {}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}}}
+      child {node {}
+      child {node {}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}}
+      child {node {}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}
+      child {node {}
+      child {node {a}}
+      child {node {a}}}}}
+    }
+    child {node {}
+      child {node {}
+      child {node {}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}}
+      child {node {}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}}}
+      child {node {}
+      child {node {}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}}
+      child {node {}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}
+      child {node {}
+      child {node {b}}
+      child {node {b}}}}}
+    };
+\end{tikzpicture}	
+	
+	Разделим листья на два типа ($a$ и $b$) следующим образом: у корня есть два сына; 
+	Если путь от листа проходит через первого сына корня, то у листа тип $a$, 
+	иначе (тогда путь до корня пройдет через другого сына корня) - $b$.
+	
+	Заметим, что любой путь между листьями одинакового типа не проходит через корень
+	(хотя бы потому что существует вариант короче - через сына корня). 
+	Значит длина таких путей не больше $2(n-1)$
+	
+	Также заметим, что любой путь между листьями разного типа всегда проходит через корень.
+	А значит его длина для дерева глубины $n$ равна $2n$.
+	
+	Заметим, что любой путь является частью какого-нибудь пути, начинающегося и заканчивающегося в листе.
+	
+	Значит максимальная длина пути $2n$, достигается только между листьями разных типов.
+	
+	Всего листьев у полного двоичного дерева глубины $n$ будет $2^n$. Очевидно, что листьев типа $a$ и $b$
+	поровну, а значит их по $2^{n-1}$. Каждый путь длины $2n$ (диаметр) задается парой листьев разного типа.
+	Получаем, что всего таких путей $2^{n-1} \cdot 2^{n-1} = 2^{2n-2}$
+	
+	Ответ: $2^{2n-2}$
+	
+	\section*{№5}
+	
+	\begin{tikzpicture}
+	\draw[step=1cm] (0, 0) grid (3, 3);
+	\begin{scope}
+		\pgftransformcm{0.5}{0.5}{0}{1}{\pgfpoint{3cm}{0}}
+		\draw[step=1cm] (0, 0) grid (3, 3);
+	\end{scope}
+	\begin{scope}
+		\pgftransformcm{1}{0}{0.5}{0.5}{\pgfpoint{0}{3cm}}
+		\draw[step=1cm] (0, 0) grid (3, 3);
+	\end{scope}
+	\end{tikzpicture}
+
+%	Будем считать единичные кубики вершинами нашего графа (всего $3*3*3=27$ вершин). 
+%	Каждый раз, когда мы удаляем перегородку, мы проводи ребро между соседними вершинами.
+	Заметим, что кубики скраю уже у границы куба. Значит с ними ничего делать не надо. 
+	Будем считать все такие кубики одной вершиной (назовем эту вершину <<внешней>>).
+	Но внутри останется $(n - 2)^3$ единичных кубиков. Будем считать каждый из них отдельной вершиной.
+	Ребра между нашими вершинами - отсутсвие перегородки между ними. 
+	
+	Итого у нас есть граф с $(n - 2)^3 + 1$ вершинами. Нужно сделать так, чтобы из любой вершины
+	была достижима <<внешняя>> вершина. 
+	Заметим, что это условие равносильно тому, что любая вершина достижима из любой (то есть граф связный).
+	Но чтобы граф на $p$ вершинах был связным, в нем должно быть хотя бы $p - 1$ ребро, причем
+	такого количества ребер хватит.
+	Значит нужно провести (убрать перегородок) $(n - 2)^3 + 1 - 1= (n - 2)^3$ ребер.
+	
+	Ответ: $(n - 2)^3$
+	
+	\section*{№6}
+%\tikzstyle{every node}=[circle, draw, fill=black, inner sep=0pt, minimum width=6pt]	
+
+	\begin{tikzpicture}
+	\draw [->, line width=1pt] (1, 1) node {} -- (2, 2);
+	\end{tikzpicture}
+	
+	Предположим, что можно удалить $n - 1$ ребро в данном графе так, чтобы он стал несвязным. Тогда он разделится на две компоненты:
+	
+	\begin{tikzpicture}
+	\draw[line width=1pt] (0, 0) ellipse (30pt and 60pt);
+	\draw[line width=1pt] (4, 0) ellipse (30pt and 60pt);
+	\draw[line width=1pt] (0, -1) -- (4, -1);
+	\draw[line width=1pt] (0, 0) -- (4, 0);
+	\draw[line width=1pt] (0, 1) -- (4, 1);
+	\draw[very thick, ->, >=stealth'] (1, -3) -- (2, -1);
+	\draw[very thick, ->, >=stealth'] (1, -3) -- (2, 0);
+	\draw[very thick, ->, >=stealth'] (1, -3) -- (2, 1);
+	\draw (1, -3) node[below] {ребра, соединявшие компоненты};
+	\draw (0, 2.5) node[rectangle,draw=black] {$a$};
+	\draw (4, 2.5) node[rectangle,draw=black] {$2n + 1 - a$};	
+	\end{tikzpicture}
+
+	Оценим сумму степеней вершины первой и второй компоненты связанности. 
+	Будем считать, что в одной $a$ вершин, а в другой, соответственно $2n + 1 - a$.
+	Без ограничения общности будем считать, что $a \leqslant n$.
+	Максимальная суммарная степень вершин в таком графе будет, если каждая компонента - полный подграф. 
+	Однако по условию степень каждой вершины будет не больше $n$. 
+	Значит в левой компоненте сумма степеней не больше $a(a - 1)$ (так как $a \leqslant n$),
+	а в правой компоненте сумма степеней не больше $(2n + 1 - a)n$ (так как $2n + 1 - a > n$).
+	По всему графу:
+	$a(a - 1) + (2n + 1 - a)n = a^2-a(n+1)+2n^2+n$. После удаления $n - 1$ ребра суммарная степень вершин будет
+	$(2n - 1)n - 2(n - 1) = 2n^2-3n-2$.
+	
+	Предположим, что получившиеся компоненты - не полные подграфы. 
+	Это значит, что суммарная степень вершин меньше, чем сумма степеней в случае полного подграфа:
+	\begin{align*}
+	a^2-a(n+1)+2n^2+n >& 2n^2-3n-2 \\
+	a^2-a(n+1)+n >&-3n-2 \\
+	a^2-a(n+1)+4n + 2 >& 0 \\
+	a(n+1)-4n - 2 <& a^2 \\
+	\mbox{учитывая, что $n \geqslant a$}:\\	
+	a(a+1)-4n - 2 \leqslant a(n+1)-4n - 2 <& a^2 \\
+	a^2 + a - 4n - 2 <& a^2 \\
+	a < 4n + 2
+	\end{align*}
+	
+	\section*{№7}
+	
+	
+	
+\end{document}
+
+
+
+
+
+
+

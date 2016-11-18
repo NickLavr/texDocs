@@ -1,0 +1,10 @@
+*
+!/other/*
+!/diskra/*
+!/**/*.tex
+!/**/*.tex
+!*.tex
+!*.pdf
+!README.md
+!.gitignore
+
